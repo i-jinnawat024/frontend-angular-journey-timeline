@@ -1,1 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'tailwindcss';
+:root {
+  --primary-light: #4a90e2;
+  --primary-dark: #8ab4f8;
+  --bg-light: #f3f4f6;
+  --bg-dark: #11182b;
+  --text-light: #111827;
+  --text-dark: #e5e7eb;
+  --card-bg-light: #ffffff;
+  --card-bg-dark: #1f2937;
+  --border-light: #d1d5db;
+  --border-dark: #4b5563;
+}
+html.dark {
+  --primary-color: var(--primary-dark);
+  --primary-color-rgb: 59, 130, 246; /* Blue RGB values */
+  --bg-color: var(--bg-dark);
+  --text-color: var(--text-dark);
+  --card-bg-color: var(--card-bg-dark);
+  --border-color: var(--border-dark);
+}
+html.light {
+  --primary-color: var(--primary-light);
+  --primary-color-rgb: 59, 130, 246; /* Blue RGB values */
+  --bg-color: var(--bg-light);
+  --text-color: var(--text-light);
+  --card-bg-color: var(--card-bg-light);
+  --border-color: var(--border-light);
+}
