@@ -16,6 +16,12 @@ import { ProjectStatus, ProjectCategory } from '../../../../core/interfaces/proj
 import { ProjectService } from '../../services/project.service';
 import { ProjectModel } from '../../models/timeline.model';
 
+interface TimelineGroupView {
+  id: string;
+  label: string;
+  projects: ProjectModel[];
+}
+
 @Component({
   selector: 'app-timeline-page',
   standalone: true,
@@ -37,14 +43,14 @@ import { ProjectModel } from '../../models/timeline.model';
 })
 export class TimelinePageComponent implements OnInit {
   private themeService = inject(ThemeService);
+  private projectService = inject(ProjectService);
   currentTheme = this.themeService.currentTheme;
   projects = signal<ProjectModel[]>([]);
   loading = signal(true);
   searchTerm = '';
   selectedCategory = '';
   selectedStatus = '';
-  
-  // View mode state
+
   viewMode = signal<'monthly' | 'annual'>('monthly');
 
   categories = [
@@ -56,14 +62,14 @@ export class TimelinePageComponent implements OnInit {
     { value: ProjectCategory.DEVOPS, label: 'DevOps' },
     { value: ProjectCategory.UI_UX_DESIGN, label: 'UI/UX Design' },
     { value: ProjectCategory.RESEARCH, label: 'Research' },
-    { value: ProjectCategory.OTHER, label: 'อื่นๆ' },
+    { value: ProjectCategory.OTHER, label: 'Other' },
   ];
 
   statuses = [
-    { value: ProjectStatus.COMPLETED, label: 'เสร็จสิ้น' },
-    { value: ProjectStatus.IN_PROGRESS, label: 'กำลังดำเนินการ' },
-    { value: ProjectStatus.ON_HOLD, label: 'หยุดชั่วคราว' },
-    { value: ProjectStatus.CANCELLED, label: 'ยกเลิก' },
+    { value: ProjectStatus.COMPLETED, label: 'Completed' },
+    { value: ProjectStatus.IN_PROGRESS, label: 'In Progress' },
+    { value: ProjectStatus.ON_HOLD, label: 'On Hold' },
+    { value: ProjectStatus.CANCELLED, label: 'Cancelled' },
   ];
 
   filteredProjects = computed(() => {
@@ -103,7 +109,45 @@ export class TimelinePageComponent implements OnInit {
     return [...new Set(technologies)];
   });
 
-  constructor(private projectService: ProjectService) {}
+  groupedProjects = computed(() => {
+    const view = this.viewMode();
+    const groups = new Map<
+      string,
+      { label: string; projects: ProjectModel[]; sortValue: number }
+    >();
+
+    for (const project of this.filteredProjects()) {
+      const startDate = new Date(project.startDate);
+      const sortValue = startDate.getTime();
+      const groupKey =
+        view === 'monthly'
+          ? `${startDate.getFullYear()}-${startDate.getMonth()}`
+          : `${startDate.getFullYear()}`;
+
+      const groupLabel =
+        view === 'monthly'
+          ? new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' }).format(startDate)
+          : new Intl.DateTimeFormat('en-US', { year: 'numeric' }).format(startDate);
+
+      if (!groups.has(groupKey)) {
+        groups.set(groupKey, { label: groupLabel, projects: [], sortValue });
+      }
+
+      const entry = groups.get(groupKey)!;
+      entry.projects = [...entry.projects, project].sort(
+        (a, b) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime()
+      );
+      entry.sortValue = Math.max(entry.sortValue, sortValue);
+    }
+
+    return Array.from(groups.entries())
+      .sort((a, b) => b[1].sortValue - a[1].sortValue)
+      .map(([id, value]) => ({
+        id,
+        label: value.label,
+        projects: value.projects,
+      }));
+  });
 
   ngOnInit() {
     this.loadProjects();
@@ -136,6 +180,14 @@ export class TimelinePageComponent implements OnInit {
     // Trigger computed signal update
   }
 
+  trackGroup(index: number, group: TimelineGroupView): string {
+    return group.id;
+  }
+
+  isLeftAligned(index: number): boolean {
+    return index % 2 !== 0;
+  }
+
   trackByProjectId(index: number, project: ProjectModel): string {
     return project.id;
   }
@@ -146,10 +198,10 @@ export class TimelinePageComponent implements OnInit {
 
   getStatusLabel(status: ProjectStatus): string {
     const statusMap = {
-      [ProjectStatus.COMPLETED]: 'เสร็จสิ้น',
-      [ProjectStatus.IN_PROGRESS]: 'กำลังดำเนินการ',
-      [ProjectStatus.ON_HOLD]: 'หยุดชั่วคราว',
-      [ProjectStatus.CANCELLED]: 'ยกเลิก',
+      [ProjectStatus.COMPLETED]: 'Completed',
+      [ProjectStatus.IN_PROGRESS]: 'In Progress',
+      [ProjectStatus.ON_HOLD]: 'On Hold',
+      [ProjectStatus.CANCELLED]: 'Cancelled',
     };
     return statusMap[status] || status;
   }
