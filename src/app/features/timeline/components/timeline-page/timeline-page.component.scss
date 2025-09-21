@@ -10,22 +10,22 @@
   justify-content: center;
   cursor: pointer;
   transition: all 0.3s ease;
-  
+
   .material-symbols-outlined {
     font-size: 20px;
     transition: transform 0.3s ease;
   }
-  
+
   &:hover {
     transform: scale(1.1);
     border-color: var(--primary-color);
-    
+
     .material-symbols-outlined {
       transform: rotate(15deg);
       color: var(--primary-color);
     }
   }
-  
+
   &:focus {
     outline: none;
     box-shadow: 0 0 0 2px rgba(var(--primary-color-rgb), 0.3);
@@ -33,7 +33,9 @@
 }
 
 @keyframes iconSpin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .theme-switching .timeline-button-switch button .material-symbols-outlined {
@@ -42,25 +44,35 @@
 
 .view-mode-toggle {
   position: relative;
-  
+  overflow: hidden;
+
   .view-switch-button {
+    position: relative;
     background: transparent;
     color: var(--text-color);
     border: none;
     cursor: pointer;
     font-weight: 500;
-    transition: color 0.3s ease;
-    
+    z-index: 2;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
     &:hover {
       color: var(--primary-color);
+      transform: translateY(-1px);
     }
-    
+
     &.active {
       color: white;
       font-weight: 600;
+      transform: translateY(0);
+
+      &:hover {
+        color: white;
+        transform: translateY(0);
+      }
     }
   }
-  
+
   &::before {
     content: '';
     position: absolute;
@@ -68,17 +80,38 @@
     left: 4px;
     width: calc(50% - 4px);
     height: calc(100% - 8px);
-    background: var(--primary-color);
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-color));
     border-radius: 50px;
-    transition: transform 0.3s ease;
-    z-index: -1;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   }
-  
+
   &:has(.view-switch-button:last-child.active)::before {
     transform: translateX(100%);
   }
 }
 
 .timeline-container {
-  transition: opacity 0.3s ease;
+  .fade-enter {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .fade-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+
+  .fade-exit {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .fade-exit-active {
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
 }
