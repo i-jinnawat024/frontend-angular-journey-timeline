@@ -15,122 +15,137 @@ export class MockDataService {
   private mockProjects: Project[] = [
     {
       id: '1',
-      title: 'ระบบจัดการคลังสินค้า WMS',
-      description: 'พัฒนาระบบจัดการคลังสินค้าแบบครบวงจร รองรับการติดตาม inventory real-time',
-      company: 'บริษัท โลจิสติกส์ เอ็กซ์เพรส จำกัด',
-      role: 'Senior Full-Stack Developer',
-      technologies: ['Angular', 'Node.js', 'PostgreSQL', 'Redis', 'Docker'],
-      startDate: new Date('2023-01-15'),
-      endDate: new Date('2023-08-30'),
-      status: ProjectStatus.COMPLETED,
-      category: ProjectCategory.WEB_DEVELOPMENT,
-      achievements: [
-        'ลดเวลาการจัดการสินค้าได้ 40%',
-        'เพิ่มความแม่นยำในการติดตาม inventory เป็น 99.5%',
-        'รองรับการใช้งานพร้อมกันได้มากกว่า 100 users',
-      ],
-      challenges: [
-        'การ sync ข้อมูล real-time ระหว่างหลาย warehouse',
-        'การออกแบบ UI ที่ใช้งานง่ายสำหรับพนักงานทุกระดับ',
-      ],
-      teamSize: 8,
-      tags: ['Enterprise', 'Real-time', 'Logistics'],
-    },
-    {
-      id: '2',
-      title: 'แอปพลิเคชัน E-Learning Platform',
+      title: 'Popup สินค้าใหม่',
       description:
-        'พัฒนาแพลตฟอร์มการเรียนรู้ออนไลน์ รองรับ video streaming และ interactive content',
-      company: 'สถาบันการศึกษาดิจิทัล',
-      role: 'Frontend Lead Developer',
-      technologies: ['React', 'TypeScript', 'WebRTC', 'Socket.io', 'AWS'],
-      startDate: new Date('2022-09-01'),
-      endDate: new Date('2023-02-28'),
-      status: ProjectStatus.COMPLETED,
-      category: ProjectCategory.WEB_DEVELOPMENT,
-      achievements: [
-        'รองรับผู้เรียนพร้อมกันได้มากกว่า 5,000 คน',
-        'ลดต้นทุนการจัดการเรียนการสอนได้ 60%',
-        'ได้รับรางวัล Best Educational Platform 2023',
-      ],
-      challenges: [
-        'การจัดการ bandwidth สำหรับ video streaming',
-        'การออกแบบ UX ที่เหมาะสำหรับทุกช่วงวัย',
-      ],
-      teamSize: 12,
-      projectUrl: 'https://learning.example.com',
-      tags: ['Education', 'Streaming', 'Interactive'],
-    },
-    {
-      id: '3',
-      title: 'Mobile Banking Application',
-      description: 'พัฒนาแอปพลิเคชันธนาคารบนมือถือ รองรับการทำธุรกรรมทางการเงินครบวงจร',
-      company: 'ธนาคารดิจิทัล แบงก์',
-      role: 'Mobile Developer',
-      technologies: ['Flutter', 'Dart', 'Firebase', 'Biometric Auth', 'Encryption'],
-      startDate: new Date('2023-09-01'),
-      endDate: undefined,
-      status: ProjectStatus.IN_PROGRESS,
-      category: ProjectCategory.MOBILE_DEVELOPMENT,
-      achievements: [
-        'ผ่านการตรวจสอบความปลอดภัยระดับธนาคาร',
-        'รองรับการยืนยันตัวตนด้วย biometric',
-        'ได้รับการรับรองมาตรฐาน ISO 27001',
-      ],
-      challenges: [
-        'การรักษาความปลอดภัยข้อมูลทางการเงิน',
-        'การออกแบบ UX ที่ใช้งานง่ายแต่ปลอดภัย',
-        'การ integrate กับระบบ core banking เดิม',
-      ],
-      teamSize: 15,
-      tags: ['FinTech', 'Security', 'Biometric', 'Real-time'],
-    },
-    {
-      id: '4',
-      title: 'IoT Dashboard สำหรับโรงงาน',
-      description: 'พัฒนา dashboard สำหรับติดตามและควบคุมเครื่องจักรในโรงงานผ่าง IoT sensors',
-      company: 'บริษัท สมาร์ท แมนูแฟคเจอริ่ง จำกัด',
-      role: 'IoT Developer',
-      technologies: ['Vue.js', 'Python', 'MQTT', 'InfluxDB', 'Grafana'],
-      startDate: new Date('2022-03-01'),
-      endDate: new Date('2022-11-15'),
-      status: ProjectStatus.COMPLETED,
-      category: ProjectCategory.WEB_DEVELOPMENT,
-      achievements: [
-        'ลดเวลา downtime ของเครื่องจักรได้ 35%',
-        'เพิ่มประสิทธิภาพการผลิตได้ 25%',
-        'ประหยัดค่าใช้จ่ายในการบำรุงรักษาได้ 50%',
-      ],
-      challenges: [
-        'การจัดการข้อมูลจาก sensors จำนวนมาก',
-        'การแสดงผลข้อมูล real-time ที่เข้าใจง่าย',
-      ],
-      teamSize: 6,
-      tags: ['IoT', 'Manufacturing', 'Real-time', 'Analytics'],
-    },
-    {
-      id: '5',
-      title: 'API Gateway สำหรับ Microservices',
-      description: 'พัฒนา API Gateway เพื่อจัดการและรักษาความปลอดภัยของ microservices',
-      company: 'บริษัท คลาวด์ โซลูชั่น จำกัด',
-      role: 'Backend Architect',
-      technologies: ['Node.js', 'Express', 'Kong', 'JWT', 'Kubernetes'],
-      startDate: new Date('2023-03-01'),
-      endDate: new Date('2023-07-15'),
+        'API แสดงรายการสินค้าย้อนหลัง 7 วันโดยจะแสดงทั้งหมด 3 วัน ที่หน้าแรกของแอพพลิเคชัน ',
+      company: 'Dplus Intertrade',
+      role: 'Junior Backend Engineer',
+      technologies: ['NestJs', 'MSSQL'],
+      startDate: new Date('2025-05-30'),
+      endDate: new Date('2025-06-06'),
       status: ProjectStatus.COMPLETED,
       category: ProjectCategory.API_DEVELOPMENT,
       achievements: [
-        'รองรับ traffic ได้มากกว่า 10,000 requests/second',
-        'ลดเวลา response time เฉลี่ย 40%',
-        'เพิ่มความปลอดภัยด้วย rate limiting และ authentication',
+        'การใช้งาน Redis สำหรับเก็บข้อมูล cache ของ API เพื่อเพิ่มความเร็วในการตอบสนอง',
       ],
       challenges: [
-        'การจัดการ load balancing ระหว่าง services',
-        'การออกแบบ monitoring และ logging ที่มีประสิทธิภาพ',
+        'การเขียน NestJs ครั้งแรกซึ่งไม่เคยเขียนมาก่อน',
+        'เรื่อง Performance ของ API ให้ใช้เวลาไม่เกิน 2 วินาที',
       ],
-      teamSize: 5,
-      repositoryUrl: 'https://github.com/company/api-gateway',
-      tags: ['Microservices', 'API', 'Security', 'Performance'],
+      teamSize: 2,
+      projectUrl: 'https://acme.example.com',
+      repositoryUrl: 'https://github.com/acme/web-redesign',
+      images: [
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuAydvJGBCLUjjPNKfrOsB2m2rXIn3zorO5eZvQ6keCI1iWKcoO6B_HmANjv8db4JLFyPPn3r4XsIzFEUI5ghiG9nz-C3ZE7p8LcVDKj9IQWdqfZnP43oePalzrZyTtqO_gaMGWVfELf0ovl2tSaqfqwoFHJ6w9xkxrdx7r4qmbyE0X5crOQ2_jt4Q-hXNFREOkiD2fquOiaGA05lZWW36JXyD6Z0lY8FO0Zd_f0Cs2vF7cGF7vnr5FUluf1KvELVCvAjppec9JdynAP',
+        'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=400&q=80',
+      ],
+    },
+    {
+      id: '2',
+      title: 'Web สำหรับ Generate Tag',
+      description: 'Web Generate Tag เหลืองของโปรโมชัน และอัพโหลดไปที่ Digital Ocean',
+      company: 'Dplus Intertrade',
+      role: 'Full-Stack Engineer',
+      technologies: ['HTML', 'CSS', 'Javascript', 'DigitalOcean'],
+      startDate: new Date('2025-06-09'),
+      endDate: new Date('2025-06-13'),
+      status: ProjectStatus.COMPLETED,
+      category: ProjectCategory.WEB_DEVELOPMENT,
+      achievements: ['ลดเวลาการทำงานของเดิม'],
+      challenges: [],
+      teamSize: 2,
+      images: [],
+    },
+    {
+      id: '3',
+      title: 'Web Application อัปโหลด รุ่น UTYPE',
+      description: 'ระบบอัพโหลด รุ่น UTYPE',
+      company: 'Dplus Intertrade',
+      role: 'Full-Stack Engineer',
+      technologies: ['React.js', 'TypeScript', 'NestJs'],
+      startDate: new Date('2025-06-16'),
+      endDate: new Date('2025-06-27'),
+      status: ProjectStatus.COMPLETED,
+      category: ProjectCategory.WEB_DEVELOPMENT,
+      achievements: ['ลดเวลาการทำงานของเดิม'],
+      challenges: ['การเขียน React ครั้งแรก'],
+      teamSize: 2,
+    },
+    {
+      id: '4',
+      title: 'Lucky gold',
+      description: 'ระบบให้ร้านค้าสแกน QR code เพื่อได้รับสิทธิ์ลุ้นทอง',
+      company: 'Dplus Intertrade',
+      role: 'Junior Backend Engineer',
+      technologies: ['NestJs', 'TypeScript', 'CQRS Pattern'],
+      startDate: new Date('2025-07-01'),
+      endDate: new Date('2025-07-31'),
+      status: ProjectStatus.COMPLETED,
+      category: ProjectCategory.API_DEVELOPMENT,
+      achievements: ['Bug มีน้อย', 'การเรียนรู้ CQRS Pattern'],
+      challenges: ['ไม่เคยเขียน CQRS Pattern มาก่อน'],
+      teamSize: 8,
+    },
+    {
+      id: '5',
+      title: 'Promotion ให้สิทธิรายรหัสร้านค้า',
+      description: 'Promotion สามารถเลือกได้ว่า ร้านไหนได้รับ ร้านไหนไม่ได้รับ',
+      company: 'Dplus Intertrade',
+      role: 'Junior Backend Engineer',
+      technologies: ['NestJs', 'DigitalOcean', 'CQRS Pattern'],
+      startDate: new Date('2025-08-01'),
+      endDate: new Date('2025-08-15'),
+      status: ProjectStatus.COMPLETED,
+      category: ProjectCategory.API_DEVELOPMENT,
+      achievements: [],
+      challenges: [],
+      teamSize: 4,
+    },
+
+    {
+      id: '6',
+      title: 'container + ci/cd',
+      description: 'เขียน Dockerfile CI/CD',
+      company: 'Dplus Intertrade',
+      role: 'Junior Backend Engineer',
+      technologies: ['DevOps'],
+      startDate: new Date('2025-08-18'),
+      endDate: new Date('2025-08-20'),
+      status: ProjectStatus.COMPLETED,
+      category: ProjectCategory.DEVOPS,
+      achievements: [],
+      challenges: [],
+      teamSize: 4,
+    },
+    {
+      id: '7',
+      title: 'โปรเจคติดอาวุธ สำหรับแจกโปร QR',
+      description: 'โปรเจคติดอาวุธ สำหรับแจกโปร QR',
+      company: 'Dplus Intertrade',
+      role: 'Junior Backend Engineer',
+      technologies: ['NestJs', 'TypeScript', 'CQRS Pattern'],
+      startDate: new Date('2025-08-25'),
+      endDate: new Date('2025-08-29'),
+      status: ProjectStatus.COMPLETED,
+      category: ProjectCategory.DEVOPS,
+      achievements: [],
+      challenges: [],
+      teamSize: 4,
+    },
+    {
+      id: '8',
+      title: 'Script Runner',
+      description: 'ผู้ใช้งานทั่วไปสามารถเลือกคำสั่งและกดใช้งานได้เลย',
+      company: 'Dplus Intertrade',
+      role: 'Junior Backend Engineer',
+      technologies: ['React.js', 'NestJs', 'TypeScript', 'CQRS Pattern'],
+      startDate: new Date('2025-09-01'),
+      endDate: undefined,
+      status: ProjectStatus.IN_PROGRESS,
+      category: ProjectCategory.WEB_DEVELOPMENT,
+      achievements: [],
+      challenges: [],
+      teamSize: 4,
     },
   ];
 
@@ -139,17 +154,7 @@ export class MockDataService {
       data: this.mockProjects,
       success: true,
       timestamp: new Date(),
-      message: 'Projects retrieved successfully',
-    }).pipe(delay(500)); // Simulate network delay
-  }
-
-  getProjectById(id: string): Observable<ApiResponse<Project | null>> {
-    const project = this.mockProjects.find((p) => p.id === id) || null;
-    return of({
-      data: project,
-      success: !!project,
-      timestamp: new Date(),
-      message: project ? 'Project found' : 'Project not found',
+      message: 'Mock projects retrieved successfully',
     }).pipe(delay(300));
   }
 
@@ -172,7 +177,7 @@ export class MockDataService {
       },
     };
 
-    return of(response).pipe(delay(500));
+    return of(response).pipe(delay(300));
   }
 
   getProjectsFiltered(
@@ -183,13 +188,14 @@ export class MockDataService {
   ): Observable<PaginatedResponse<Project[]>> {
     let filteredProjects = [...this.mockProjects];
 
-    // Apply filters
     if (filters.category) {
       filteredProjects = filteredProjects.filter((p) => p.category === filters.category);
     }
+
     if (filters.status) {
       filteredProjects = filteredProjects.filter((p) => p.status === filters.status);
     }
+
     if (filters.dateRange) {
       filteredProjects = filteredProjects.filter((p) => {
         const projectDate = new Date(p.startDate);
@@ -197,67 +203,21 @@ export class MockDataService {
       });
     }
 
-    // Apply sorting
+    if (filters.tags && filters.tags.length) {
+      filteredProjects = filteredProjects.filter((project) =>
+        filters.tags!.every((tag) => project.tags?.includes(tag) || false)
+      );
+    }
+
     if (sort) {
       filteredProjects.sort((a, b) => {
-        const aValue = (a as any)[sort.field];
-        const bValue = (b as any)[sort.field];
+        const aValue = (a as Record<string, any>)[sort.field];
+        const bValue = (b as Record<string, any>)[sort.field];
         const comparison = aValue < bValue ? -1 : aValue > bValue ? 1 : 0;
         return sort.direction === 'desc' ? -comparison : comparison;
       });
     }
 
-    // Apply pagination
-    const startIndex = (page - 1) * limit;
-    const endIndex = startIndex + limit;
-    const paginatedProjects = filteredProjects.slice(startIndex, endIndex);
-
-    const response: PaginatedResponse<Project[]> = {
-      success: true,
-      data: paginatedProjects,
-      pagination: {
-        currentPage: page,
-        totalPages: Math.ceil(filteredProjects.length / limit),
-        totalItems: filteredProjects.length,
-        itemsPerPage: limit,
-      },
-    };
-
-    return of(response).pipe(delay(500));
-  }
-
-  getProjectsByCategory(category: ProjectCategory): Observable<ApiResponse<Project[]>> {
-    const filteredProjects = this.mockProjects.filter((p) => p.category === category);
-    return of({
-      data: filteredProjects,
-      success: true,
-      timestamp: new Date(),
-      message: `Projects in ${category} category retrieved`,
-    }).pipe(delay(300));
-  }
-
-  getProjectsByStatus(status: ProjectStatus): Observable<ApiResponse<Project[]>> {
-    const filteredProjects = this.mockProjects.filter((p) => p.status === status);
-    return of({
-      data: filteredProjects,
-      success: true,
-      timestamp: new Date(),
-      message: `Projects with ${status} status retrieved`,
-    }).pipe(delay(300));
-  }
-
-  searchProjects(
-    query: string,
-    page: number = 1,
-    limit: number = 10
-  ): Observable<PaginatedResponse<Project[]>> {
-    const filteredProjects = this.mockProjects.filter(
-      (project) =>
-        project.title.toLowerCase().includes(query.toLowerCase()) ||
-        project.description.toLowerCase().includes(query.toLowerCase())
-    );
-
-    // Apply pagination
     const startIndex = (page - 1) * limit;
     const endIndex = startIndex + limit;
     const paginatedProjects = filteredProjects.slice(startIndex, endIndex);
@@ -274,6 +234,64 @@ export class MockDataService {
     };
 
     return of(response).pipe(delay(300));
+  }
+
+  getProjectsByCategory(category: ProjectCategory): Observable<ApiResponse<Project[]>> {
+    const filteredProjects = this.mockProjects.filter((p) => p.category === category);
+    return of({
+      data: filteredProjects,
+      success: true,
+      timestamp: new Date(),
+      message: `Projects in ${category} category retrieved`,
+    }).pipe(delay(250));
+  }
+
+  getProjectsByStatus(status: ProjectStatus): Observable<ApiResponse<Project[]>> {
+    const filteredProjects = this.mockProjects.filter((p) => p.status === status);
+    return of({
+      data: filteredProjects,
+      success: true,
+      timestamp: new Date(),
+      message: `Projects with ${status} status retrieved`,
+    }).pipe(delay(250));
+  }
+
+  searchProjects(
+    query: string,
+    page: number = 1,
+    limit: number = 10
+  ): Observable<PaginatedResponse<Project[]>> {
+    const normalizedQuery = query.toLowerCase();
+    const filteredProjects = this.mockProjects.filter((project) => {
+      const haystack = [
+        project.title,
+        project.description,
+        project.company,
+        project.role,
+        ...(project.tags || []),
+      ]
+        .join(' ')
+        .toLowerCase();
+
+      return haystack.includes(normalizedQuery);
+    });
+
+    const startIndex = (page - 1) * limit;
+    const endIndex = startIndex + limit;
+    const paginatedProjects = filteredProjects.slice(startIndex, endIndex);
+
+    const response: PaginatedResponse<Project[]> = {
+      success: true,
+      data: paginatedProjects,
+      pagination: {
+        currentPage: page,
+        totalPages: Math.ceil(filteredProjects.length / limit),
+        totalItems: filteredProjects.length,
+        itemsPerPage: limit,
+      },
+    };
+
+    return of(response).pipe(delay(250));
   }
 
   getAllTechnologies(): string[] {
