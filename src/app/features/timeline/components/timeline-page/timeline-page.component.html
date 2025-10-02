@@ -6,6 +6,7 @@
     <h1 class="text-4xl font-bold text-[var(--text-color)]">Activity Timeline</h1>
     <p class="text-lg text-[var(--text-color)]/70 mt-2">A summary of my work and progress.</p>
   </header>
+
   <div class="flex justify-center items-center mb-10">
     <div
       class="bg-[var(--card-bg-color)] p-1 rounded-full shadow-md border border-[var(--border-color)] view-mode-toggle"
@@ -18,7 +19,7 @@
       >
         Monthly
       </button>
-      <button 
+      <button
         class="view-switch-button px-6 py-2 rounded-full font-medium transition-all duration-300"
         [class.active]="isActiveViewMode('annual')"
         (click)="setViewMode('annual')"
@@ -28,161 +29,112 @@
       </button>
     </div>
   </div>
-  <!-- Timeline Content -->
-  <div class="timeline-content-wrapper">
-    <!-- Monthly View -->
-    <div *ngIf="viewMode() === 'monthly'" class="monthly-view fade-enter-active">
-      <h2 class="text-2xl font-bold text-[var(--text-color)] text-center mb-8">March 2023</h2>
-      <div class="relative wrap overflow-hidden p-10 h-full">
-        <div
-          class="absolute border-opacity-20 border-[var(--border-color)] h-full border"
-          style="left: 50%"
-        ></div>
-        
-        <!-- Timeline Item 1 -->
-        <div class="mb-8 flex justify-between items-start w-full right-timeline">
-          <div class="order-1 w-5/12"></div>
-          <div
-            class="z-20 flex items-center order-1 bg-[var(--primary-color)] shadow-xl w-8 h-8 rounded-full"
-          >
-            <span class="mx-auto text-white dark:text-gray-900 font-semibold">15</span>
-          </div>
-          <div
-            class="order-1 bg-[var(--card-bg-color)] rounded-lg shadow-xl w-5/12 px-6 py-4 border border-[var(--border-color)]"
-          >
-            <h3 class="font-bold text-[var(--text-color)] text-xl">Website Redesign Launch</h3>
-            <p class="text-sm leading-snug tracking-wide text-[var(--text-color)]/80 mt-2">
-              Completed the final phase of the corporate website redesign, focusing on user
-              experience and mobile responsiveness. Launched successfully.
-            </p>
-            <div class="mt-4 flex flex-wrap gap-2">
-              <img
-                alt="Website screenshot 1"
-                class="w-24 h-24 object-cover rounded-md"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAydvJGBCLUjjPNKfrOsB2m2rXIn3zorO5eZvQ6keCI1iWKcoO6B_HmANjv8db4JLFyPPn3r4XsIzFEUI5ghiG9nz-C3ZE7p8LcVDKj9IQWdqfZnP43oePalzrZyTtqO_gaMGWVfELf0ovl2tSaqfqwoFHJ6w9xkxrdx7r4qmbyE0X5crOQ2_jt4Q-hXNFREOkiD2fquOiaGA05lZWW36JXyD6Z0lY8FO0Zd_f0Cs2vF7cGF7vnr5FUluf1KvELVCvAjppec9JdynAP"
-              />
-              <img
-                alt="Website screenshot 2"
-                class="w-24 h-24 object-cover rounded-md"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYsCeCYFIt22FUNW9vshyjIMisgkevulIsZBLOxVMSUHNRNJ0t7fzgN1-fO7oH-kgGHOJk-iB113CWv3PjAnprCG3d_ZmMY5a7XYF3-3EgJg-hiDpVdfGbf9ur_Dm6hw-5NyJCSwpaS5nqj90HFialS1jUYQ5wCE5Qvcne_GUPwYcAGldBWdxNtwnVyp2mqh_Sr-FGVQ521Npa_KUOwsQtBPCz0ew2yIh_iYARnBqE5Ge0w7VqtpGKoUlp4nUlwvPwsR2mzhGN49AO"
-              />
-            </div>
-          </div>
-        </div>
-        
-        <!-- Timeline Item 2 -->
-        <div class="mb-8 flex justify-between flex-row-reverse items-start w-full left-timeline">
-          <div class="order-1 w-5/12"></div>
-          <div
-            class="z-20 flex items-center order-1 bg-[var(--primary-color)] shadow-xl w-8 h-8 rounded-full"
-          >
-            <span class="mx-auto text-white dark:text-gray-900 font-semibold">05</span>
-          </div>
-          <div
-            class="order-1 bg-[var(--card-bg-color)] rounded-lg shadow-xl w-5/12 px-6 py-4 border border-[var(--border-color)]"
-          >
-            <h3 class="font-bold text-[var(--text-color)] text-xl">Feature A/B Testing</h3>
-            <p class="text-sm leading-snug tracking-wide text-[var(--text-color)]/80 mt-2">
-              Conducted A/B testing for a new checkout flow, resulting in a 15% increase in
-              conversion.
-            </p>
-          </div>
-        </div>
+  <section class="max-w-5xl mx-auto">
+    <ng-container *ngIf="loading(); else timelineContent">
+      <div class="flex justify-center py-16">
+        <mat-spinner diameter="48"></mat-spinner>
       </div>
-    </div>
+    </ng-container>
 
-    <!-- Annual View -->
-    <div *ngIf="viewMode() === 'annual'" class="annual-view fade-enter-active">
-      <h2 class="text-2xl font-bold text-[var(--text-color)] text-center mb-8">2023 Overview</h2>
-      <div class="relative wrap overflow-hidden p-10 h-full">
-        <div
-          class="absolute border-opacity-20 border-[var(--border-color)] h-full border"
-          style="left: 50%"
-        ></div>
-        
-        <!-- Annual Timeline Item 1 -->
-        <div class="mb-8 flex justify-between items-start w-full right-timeline">
-          <div class="order-1 w-5/12"></div>
-          <div
-            class="z-20 flex items-center order-1 bg-[var(--primary-color)] shadow-xl w-12 h-12 rounded-full"
-          >
-            <span class="mx-auto text-white dark:text-gray-900 font-semibold text-sm">Q1</span>
+    <ng-template #timelineContent>
+      <ng-container *ngIf="groupedProjects().length; else emptyState">
+        <ng-container *ngFor="let group of groupedProjects(); trackBy: trackGroup">
+          <h2 class="text-2xl font-bold text-[var(--text-color)] text-center mb-8">
+            {{ group.label }}
+          </h2>
+
+          <div class="relative wrap overflow-hidden p-10 h-full">
+            <div
+              class="absolute border-opacity-20 border-[var(--border-color)] h-full border"
+              style="left: 50%"
+            ></div>
+
+            <ng-container
+              *ngFor="let project of group.projects; let idx = index; trackBy: trackByProjectId"
+            >
+              <div
+                class="mb-8 flex justify-between items-start w-full"
+                [ngClass]="isLeftAligned(idx) ? 'flex-row-reverse left-timeline' : 'right-timeline'"
+              >
+                <div class="order-1 w-5/12"></div>
+                <div
+                  class="z-20 flex items-center order-1 bg-[var(--primary-color)] shadow-xl w-10 h-10 rounded-full"
+                >
+                  <span class="mx-auto text-white font-semibold">
+                    {{ project.startDate | date : 'dd' }}
+                  </span>
+                </div>
+                <div
+                  class="order-1 bg-[var(--card-bg-color)] rounded-lg shadow-xl w-5/12 px-6 py-5 border border-[var(--border-color)]"
+                >
+                  <div class="flex justify-between gap-4 items-start">
+                    <div>
+                      <h3 class="font-bold text-[var(--text-color)] text-xl">
+                        {{ project.title }}
+                      </h3>
+                      <p class="text-sm text-[var(--text-color)]/70 mt-1">{{ project.company }}</p>
+                      <p class="text-xs text-[var(--text-color)]/60 mt-1">
+                        {{ project.startDate | date : 'mediumDate' }} -
+                        {{ formatProjectDuration(project) }}
+                      </p>
+                    </div>
+                    <span
+                      class="text-xs font-semibold px-3 py-1 rounded-full border border-[var(--border-color)] bg-[var(--bg-color)]"
+                    >
+                      {{ getStatusLabel(project.status) }}
+                    </span>
+                  </div>
+
+                  <p class="text-sm leading-snug tracking-wide text-[var(--text-color)]/80 mt-3">
+                    {{ project.description }}
+                  </p>
+
+                  <div *ngIf="project.technologies.length" class="mt-4 flex flex-wrap gap-2">
+                    <span
+                      *ngFor="let tech of project.technologies"
+                      class="text-xs px-3 py-1 rounded-full border border-[var(--border-color)] bg-[var(--bg-color)] text-[var(--text-color)]/80"
+                    >
+                      {{ tech }}
+                    </span>
+                  </div>
+
+                  <div *ngIf="project.achievements.length" class="mt-4">
+                    <h4 class="text-sm font-semibold text-[var(--text-color)]">Highlights</h4>
+                    <ul class="mt-2 space-y-1 text-sm text-[var(--text-color)]/80">
+                      <li *ngFor="let achievement of project.achievements">- {{ achievement }}</li>
+                    </ul>
+                  </div>
+
+                  <div *ngIf="project.challenges.length" class="mt-4">
+                    <h4 class="text-sm font-semibold text-[var(--text-color)]">challenges</h4>
+                    <ul class="mt-2 space-y-1 text-sm text-[var(--text-color)]/80">
+                      <li *ngFor="let challenge of project.challenges">- {{ challenge }}</li>
+                    </ul>
+                  </div>
+                  <div *ngIf="project.images?.length" class="mt-4 flex flex-wrap gap-2">
+                    <img
+                      alt="{{ project.title }} screenshot {{ idx + 1 }}"
+                      class="w-24 h-24 object-cover rounded-md"
+                      src="{{ project.images?.[idx] || '' }}"
+                    />
+                  </div>
+                </div>
+              </div>
+            </ng-container>
           </div>
-          <div
-            class="order-1 bg-[var(--card-bg-color)] rounded-lg shadow-xl w-5/12 px-6 py-4 border border-[var(--border-color)]"
-          >
-            <h3 class="font-bold text-[var(--text-color)] text-xl">Q1 2023 - Foundation Building</h3>
-            <p class="text-sm leading-snug tracking-wide text-[var(--text-color)]/80 mt-2">
-              Established core infrastructure, completed 3 major projects including website redesign, 
-              mobile app development, and API optimization. Team expanded by 40%.
-            </p>
-            <div class="mt-3 flex flex-wrap gap-2">
-              <span class="px-3 py-1 bg-[var(--primary-color)]/10 text-[var(--primary-color)] rounded-full text-xs font-medium">
-                3 Projects
-              </span>
-              <span class="px-3 py-1 bg-green-500/10 text-green-600 rounded-full text-xs font-medium">
-                100% Success Rate
-              </span>
-            </div>
-          </div>
+        </ng-container>
+      </ng-container>
+
+      <ng-template #emptyState>
+        <div class="text-center py-16 border border-dashed border-[var(--border-color)] rounded-lg">
+          <h3 class="text-xl font-semibold text-[var(--text-color)]">No projects to show</h3>
+          <p class="text-sm text-[var(--text-color)]/70 mt-3">
+            Adjust your filters or search to see more timeline entries.
+          </p>
         </div>
-        
-        <!-- Annual Timeline Item 2 -->
-        <div class="mb-8 flex justify-between flex-row-reverse items-start w-full left-timeline">
-          <div class="order-1 w-5/12"></div>
-          <div
-            class="z-20 flex items-center order-1 bg-[var(--primary-color)] shadow-xl w-12 h-12 rounded-full"
-          >
-            <span class="mx-auto text-white dark:text-gray-900 font-semibold text-sm">Q2</span>
-          </div>
-          <div
-            class="order-1 bg-[var(--card-bg-color)] rounded-lg shadow-xl w-5/12 px-6 py-4 border border-[var(--border-color)]"
-          >
-            <h3 class="font-bold text-[var(--text-color)] text-xl">Q2 2023 - Scale & Innovation</h3>
-            <p class="text-sm leading-snug tracking-wide text-[var(--text-color)]/80 mt-2">
-              Launched AI-powered features, implemented microservices architecture, 
-              and achieved 99.9% uptime. Revenue increased by 150%.
-            </p>
-            <div class="mt-3 flex flex-wrap gap-2">
-              <span class="px-3 py-1 bg-[var(--primary-color)]/10 text-[var(--primary-color)] rounded-full text-xs font-medium">
-                5 Projects
-              </span>
-              <span class="px-3 py-1 bg-blue-500/10 text-blue-600 rounded-full text-xs font-medium">
-                AI Integration
-              </span>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Annual Timeline Item 3 -->
-        <div class="mb-8 flex justify-between items-start w-full right-timeline">
-          <div class="order-1 w-5/12"></div>
-          <div
-            class="z-20 flex items-center order-1 bg-[var(--primary-color)] shadow-xl w-12 h-12 rounded-full"
-          >
-            <span class="mx-auto text-white dark:text-gray-900 font-semibold text-sm">Q3</span>
-          </div>
-          <div
-            class="order-1 bg-[var(--card-bg-color)] rounded-lg shadow-xl w-5/12 px-6 py-4 border border-[var(--border-color)]"
-          >
-            <h3 class="font-bold text-[var(--text-color)] text-xl">Q3 2023 - Global Expansion</h3>
-            <p class="text-sm leading-snug tracking-wide text-[var(--text-color)]/80 mt-2">
-              Expanded to 3 new markets, localized platform for international users, 
-              and established partnerships with major tech companies.
-            </p>
-            <div class="mt-3 flex flex-wrap gap-2">
-              <span class="px-3 py-1 bg-[var(--primary-color)]/10 text-[var(--primary-color)] rounded-full text-xs font-medium">
-                Global Launch
-              </span>
-              <span class="px-3 py-1 bg-purple-500/10 text-purple-600 rounded-full text-xs font-medium">
-                3 New Markets
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+      </ng-template>
+    </ng-template>
+  </section>
 
   <div class="fixed top-0 right-0 m-4 timeline-button-switch">
     <button

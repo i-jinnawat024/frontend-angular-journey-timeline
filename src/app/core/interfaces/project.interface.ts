@@ -15,14 +15,14 @@ export interface Project {
   projectUrl?: string;
   repositoryUrl?: string;
   images?: string[];
-  tags: string[];
+  tags?: string[];
 }
 
 export enum ProjectStatus {
   COMPLETED = 'completed',
   IN_PROGRESS = 'in_progress',
   ON_HOLD = 'on_hold',
-  CANCELLED = 'cancelled'
+  CANCELLED = 'cancelled',
 }
 
 export enum ProjectCategory {
@@ -34,7 +34,7 @@ export enum ProjectCategory {
   DEVOPS = 'devops',
   UI_UX_DESIGN = 'ui_ux_design',
   RESEARCH = 'research',
-  OTHER = 'other'
+  OTHER = 'other',
 }
 
 export interface TimelineEvent {
@@ -55,5 +55,5 @@ export enum TimelineEventType {
   RELEASE = 'release',
   MEETING = 'meeting',
   ACHIEVEMENT = 'achievement',
-  CHALLENGE = 'challenge'
+  CHALLENGE = 'challenge',
 }

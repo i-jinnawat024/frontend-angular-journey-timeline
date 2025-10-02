@@ -26,8 +26,8 @@ export class ProjectModel implements Project {
     this.company = data.company || '';
     this.role = data.role || '';
     this.technologies = data.technologies || [];
-    this.startDate = data.startDate || new Date();
-    this.endDate = data.endDate;
+    this.startDate = data.startDate ? new Date(data.startDate) : new Date();
+    this.endDate = data.endDate ? new Date(data.endDate) : undefined;
     this.status = data.status || ProjectStatus.COMPLETED;
     this.category = data.category || ProjectCategory.WEB_DEVELOPMENT;
     this.achievements = data.achievements || [];
@@ -52,14 +52,18 @@ export class ProjectModel implements Project {
   get formattedDuration(): string {
     const days = this.duration;
     if (days < 30) {
-      return `${days} วัน`;
+      return `${days} day${days === 1 ? '' : 's'}`;
     } else if (days < 365) {
       const months = Math.floor(days / 30);
-      return `${months} เดือน`;
+      return `${months} month${months === 1 ? '' : 's'}`;
     } else {
       const years = Math.floor(days / 365);
       const remainingMonths = Math.floor((days % 365) / 30);
-      return remainingMonths > 0 ? `${years} ปี ${remainingMonths} เดือน` : `${years} ปี`;
+      const yearLabel = `${years} year${years === 1 ? '' : 's'}`;
+      if (remainingMonths > 0) {
+        return `${yearLabel} ${remainingMonths} month${remainingMonths === 1 ? '' : 's'}`;
+      }
+      return yearLabel;
     }
   }
 }
@@ -74,3 +78,6 @@ export interface TimelineViewOptions {
   selectedCategories: ProjectCategory[];
   selectedTechnologies: string[];
 }
+
+
+

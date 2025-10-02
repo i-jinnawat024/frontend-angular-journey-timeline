@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@import 'tailwindcss';
+@use 'tailwindcss';
 :root {
   --primary-light: #4a90e2;
   --primary-dark: #8ab4f8;
@@ -14,7 +14,7 @@
 }
 html.dark {
   --primary-color: var(--primary-dark);
-  --primary-color-rgb: 59, 130, 246; /* Blue RGB values */
+  --primary-color-rgb: 59, 130, 246;
   --bg-color: var(--bg-dark);
   --text-color: var(--text-dark);
   --card-bg-color: var(--card-bg-dark);
@@ -22,7 +22,7 @@ html.dark {
 }
 html.light {
   --primary-color: var(--primary-light);
-  --primary-color-rgb: 59, 130, 246; /* Blue RGB values */
+  --primary-color-rgb: 59, 130, 246;
   --bg-color: var(--bg-light);
   --text-color: var(--text-light);
   --card-bg-color: var(--card-bg-light);
